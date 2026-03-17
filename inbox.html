@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosdip 2026 — Инвестиционный меморандум</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .gradient-bg { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+        .card { transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        .status-dot { height: 10px; width: 10px; border-radius: 50%; display: inline-block; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Header / Hero Section -->
+    <header class="gradient-bg text-white py-12 px-6 shadow-xl">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <span class="bg-blue-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Версия 1.2 (FwD)</span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold mt-4">Rosdip 2026</h1>
+                    <p class="text-xl mt-2 text-blue-100 max-w-2xl">Платформа трансграничной кооперации резидентов индустриальных парков РФ и КНР</p>
+                </div>
+                <div class="mt-8 md:mt-0 bg-white/10 p-6 rounded-2xl border border-white/20 backdrop-blur-md">
+                    <p class="text-sm text-blue-200">Запрашиваемый объем</p>
+                    <p class="text-3xl font-bold">79,35 млн руб.</p>
+                    <p class="text-xs mt-2 text-blue-200">Срок: 32 месяца (вкл. резерв 10%)</p>
+                </div>
+            </div>
+            <div class="mt-10 flex flex-wrap gap-4 text-sm">
+                <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg">
+                    <i class="fa-solid fa-calendar"></i> 17 марта 2026 г.
+                </div>
+                <div class="flex items-center gap-2 bg-green-500/20 px-4 py-2 rounded-lg border border-green-500/30">
+                    <span class="status-dot bg-green-400"></span> Готов к рассмотрению
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-12 space-y-16">
+        
+        <!-- 1. Резюме проекта -->
+        <section id="summary" class="grid md:grid-cols-3 gap-8">
+            <div class="md:col-span-2 space-y-6">
+                <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4">Резюме проекта</h2>
+                <p class="text-gray-600 leading-relaxed">
+                    Специализированная B2B-платформа для автоматизации и сопровождения ВЭД между резидентами российских индустриальных парков и партнерами в Китае. Решение «одного окна»: от поиска верифицированного контрагента до платежей в юанях и логистики.
+                </p>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="p-5 bg-red-50 border-l-4 border-red-400 rounded-r-xl">
+                        <h4 class="font-bold text-red-800 text-sm uppercase">Проблема</h4>
+                        <p class="text-sm text-red-700 mt-1">Санкционное давление, сложности с платежами, риски мошенничества и фрагментарность логистики.</p>
+                    </div>
+                    <div class="p-5 bg-green-50 border-l-4 border-green-400 rounded-r-xl">
+                        <h4 class="font-bold text-green-800 text-sm uppercase">Решение</h4>
+                        <p class="text-sm text-green-700 mt-1">Экосистема с закрытым доступом, эскроу-сервис (RUB/CNY) и глубокая интеграция с ФТС/1С.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center space-y-6">
+                <div class="text-center">
+                    <p class="text-gray-400 text-xs uppercase font-semibold">Стадия</p>
+                    <p class="text-2xl font-bold text-blue-600">Предпосевной этап</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-gray-400 text-xs uppercase font-semibold">Безубыточность</p>
+                    <p class="text-2xl font-bold text-gray-800">38-й месяц</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-gray-400 text-xs uppercase font-semibold">Целевая выручка (SOM)</p>
+                    <p class="text-2xl font-bold text-gray-800">14,18 млн ₽ / год</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Анализ рынка -->
+        <section id="market" class="space-y-8">
+            <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4">Анализ рынка (TAM-SAM-SOM)</h2>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <canvas id="marketChart" width="400" height="300"></canvas>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center p-4 bg-blue-50 rounded-xl">
+                        <div class="w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold mr-4 text-xs">TAM</div>
+                        <div>
+                            <p class="font-bold">224,8 млн ₽</p>
+                            <p class="text-xs text-gray-500">6 013 компаний — все резиденты парков РФ</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 bg-blue-100 rounded-xl">
+                        <div class="w-12 h-12 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold mr-4 text-xs">SAM</div>
+                        <div>
+                            <p class="font-bold">72,7 млн ₽</p>
+                            <p class="text-xs text-gray-500">1 503 компании — ориентированы на Китай</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 bg-blue-600 text-white rounded-xl">
+                        <div class="w-12 h-12 bg-white text-blue-600 rounded-lg flex items-center justify-center font-bold mr-4 text-xs">SOM</div>
+                        <div>
+                            <p class="font-bold">14,18 млн ₽</p>
+                            <p class="text-xs text-blue-100">233 компании — цель на 3 года</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Дорожная карта -->
+        <section id="roadmap" class="space-y-8">
+            <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4">Дорожная карта реализации</h2>
+            <div class="relative border-l-2 border-blue-200 ml-4 space-y-12">
+                <!-- Phase 1 -->
+                <div class="relative pl-10">
+                    <div class="absolute -left-3 top-0 w-6 h-6 bg-blue-600 rounded-full border-4 border-white"></div>
+                    <div>
+                        <h3 class="font-bold text-lg text-blue-700">ФАЗА 1: Валидация и MVP (М1 – М16)</h3>
+                        <div class="mt-4 grid md:grid-cols-3 gap-4">
+                            <div class="p-4 bg-white rounded-xl shadow-sm border border-gray-100">
+                                <p class="text-xs font-bold text-gray-400 mb-2 uppercase">М1–М6: Анализ</p>
+                                <p class="text-sm">Интервью с УК, лендинг, сбор базы контактов.</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl shadow-sm border border-gray-100">
+                                <p class="text-xs font-bold text-gray-400 mb-2 uppercase">М6–М11: MVP+</p>
+                                <p class="text-sm">Каталог товаров, личный кабинет, верификация, 1С интеграция.</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl shadow-sm border border-gray-100 border-dashed">
+                                <p class="text-xs font-bold text-gray-400 mb-2 uppercase">М11–М16: Пилот</p>
+                                <p class="text-sm">Тест на 50 компаниях, NPS опрос, Go/NoGo решение.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Phase 2 -->
+                <div class="relative pl-10">
+                    <div class="absolute -left-3 top-0 w-6 h-6 bg-gray-300 rounded-full border-4 border-white"></div>
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-500 text-blue-700">ФАЗА 2: Масштабирование (М17 – М32)</h3>
+                        <div class="mt-4 grid md:grid-cols-3 gap-4">
+                            <div class="p-4 bg-white rounded-xl shadow-sm border border-gray-100">
+                                <p class="text-xs font-bold text-gray-400 mb-2 uppercase">М17–М21: Транзакции</p>
+                                <p class="text-sm">Платежные шлюзы, логистический API, запуск тарифов.</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl shadow-sm border border-gray-100">
+                                <p class="text-xs font-bold text-gray-400 mb-2 uppercase">М21–М26: Advanced</p>
+                                <p class="text-sm">Эскроу-сервис, BI-аналитика, таможенный калькулятор.</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl shadow-sm border border-gray-100">
+                                <p class="text-xs font-bold text-gray-400 mb-2 uppercase">М26–М32: Экспансия</p>
+                                <p class="text-sm">Выход на 233 клиента, захват рынка КНР (WeChat/Baidu).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Бизнес-модель -->
+        <section id="model" class="space-y-8">
+            <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4">Монетизация (Год 3)</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center">
+                    <div class="text-blue-600 text-3xl mb-4"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                    <h4 class="font-bold">Подписки (SaaS)</h4>
+                    <p class="text-2xl font-extrabold mt-2 text-gray-800">12,79 млн ₽</p>
+                    <p class="text-xs text-gray-400 mt-1">90% от выручки</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center">
+                    <div class="text-blue-600 text-3xl mb-4"><i class="fa-solid fa-handshake-simple"></i></div>
+                    <h4 class="font-bold">Комиссии</h4>
+                    <p class="text-2xl font-extrabold mt-2 text-gray-800">0,70 млн ₽</p>
+                    <p class="text-xs text-gray-400 mt-1">Транзакции и эскроу (5%)</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center">
+                    <div class="text-blue-600 text-3xl mb-4"><i class="fa-solid fa-gears"></i></div>
+                    <h4 class="font-bold">Доп. сервисы</h4>
+                    <p class="text-2xl font-extrabold mt-2 text-gray-800">0,70 млн ₽</p>
+                    <p class="text-xs text-gray-400 mt-1">ВЭД-аудит (5%)</p>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left bg-white rounded-xl shadow-sm border border-gray-100">
+                    <thead class="bg-gray-50 border-b border-gray-100">
+                        <tr>
+                            <th class="p-4 text-xs font-bold uppercase text-gray-400">Тариф</th>
+                            <th class="p-4 text-xs font-bold uppercase text-gray-400">Доля (SOM)</th>
+                            <th class="p-4 text-xs font-bold uppercase text-gray-400">Цена (год)</th>
+                            <th class="p-4 text-xs font-bold uppercase text-gray-400">Комиссия</th>
+                            <th class="p-4 text-xs font-bold uppercase text-gray-400">Ключевая особенность</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr>
+                            <td class="p-4 font-bold text-blue-600">START</td>
+                            <td class="p-4">20%</td>
+                            <td class="p-4">18 000 ₽</td>
+                            <td class="p-4">3.0%</td>
+                            <td class="p-4 text-sm">Базовая верификация</td>
+                        </tr>
+                        <tr class="bg-blue-50/30">
+                            <td class="p-4 font-bold text-blue-600">PRO</td>
+                            <td class="p-4">60%</td>
+                            <td class="p-4">45 000 ₽</td>
+                            <td class="p-4">1.5%</td>
+                            <td class="p-4 text-sm">Глубокая верификация, безлимит</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-blue-600">ENTERPRISE</td>
+                            <td class="p-4">20%</td>
+                            <td class="p-4">120 000 ₽</td>
+                            <td class="p-4">0.8%</td>
+                            <td class="p-4 text-sm">Аутсорсинг ВЭД, приоритет</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 5. Юнит-экономика и Риски -->
+        <section class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-6">
+                <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4">Юнит-экономика (М24)</h2>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-8">
+                    <div class="flex justify-between items-end border-b pb-4">
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase font-bold">CAC (Привлечение)</p>
+                            <p class="text-2xl font-bold">55 000 ₽</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-xs text-gray-400 uppercase font-bold">LTV (Доход)</p>
+                            <p class="text-2xl font-bold">136 800 ₽</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div class="flex-1">
+                            <p class="text-sm font-semibold text-gray-600 mb-2">Отношение LTV/CAC</p>
+                            <div class="h-4 bg-gray-100 rounded-full overflow-hidden flex">
+                                <div class="h-full bg-blue-600" style="width: 83%"></div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-3xl font-extrabold text-blue-600">2.49</p>
+                            <p class="text-[10px] text-gray-400 uppercase">Цель: 3.0</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-yellow-50 rounded-xl border border-yellow-100">
+                        <p class="text-xs text-yellow-800 font-medium">Модель чувствительна к Churn Rate. При оттоке > 2.5% LTV критически снижается.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4">Анализ рисков</h2>
+                <div class="space-y-4">
+                    <div class="p-4 bg-white border border-gray-100 rounded-xl flex gap-4 items-start">
+                        <div class="text-red-500 mt-1"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div>
+                            <p class="font-bold text-sm">Кассовый разрыв (М32-М38)</p>
+                            <p class="text-xs text-gray-500 mt-1">Финансирование заканчивается до выхода на BEP. Нужен Bridge-раунд (10-15 млн руб).</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white border border-gray-100 rounded-xl flex gap-4 items-start">
+                        <div class="text-orange-500 mt-1"><i class="fa-solid fa-chart-line"></i></div>
+                        <div>
+                            <p class="font-bold text-sm">Завышение SOM</p>
+                            <p class="text-xs text-gray-500 mt-1">Доля экспортеров в парках может быть ниже. Решение: CustDev до М6.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white border border-gray-100 rounded-xl flex gap-4 items-start">
+                        <div class="text-yellow-500 mt-1"><i class="fa-solid fa-code"></i></div>
+                        <div>
+                            <p class="font-bold text-sm">Риски аутсорсинга кода</p>
+                            <p class="text-xs text-gray-500 mt-1">60-70% разработки на внешке. Решение: Жесткий SLA и внутренний CTO аудит.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Recommendation -->
+        <section class="bg-blue-900 text-white p-10 rounded-3xl shadow-2xl relative overflow-hidden">
+            <div class="relative z-10 max-w-2xl">
+                <h2 class="text-3xl font-bold mb-6">Заключение</h2>
+                <p class="text-blue-100 mb-8 leading-relaxed">
+                    Проект Rosdip 2026 обладает сильным стратегическим обоснованием в условиях разворота на Восток. 
+                    <span class="font-bold text-white">Рекомендация: ОДОБРИТЬ</span> финансирование 79,35 млн руб. при условии подготовки Bridge-плана и успешной верификации пилота (50 компаний) к М16.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="bg-white text-blue-900 font-bold px-8 py-3 rounded-xl hover:bg-blue-50 transition-colors">Скачать PDF</button>
+                    <button class="bg-blue-700/50 border border-blue-400 text-white font-bold px-8 py-3 rounded-xl hover:bg-blue-700 transition-colors">Связаться с CEO</button>
+                </div>
+            </div>
+            <div class="absolute right-0 top-0 h-full w-1/3 opacity-10 flex items-center justify-center">
+                <i class="fa-solid fa-file-contract text-[200px]"></i>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 border-t border-gray-200 py-10 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 gap-4">
+            <p>© 2026 Rosdip Ecosystem. Все права защищены.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-blue-600">Политика конфиденциальности</a>
+                <a href="#" class="hover:text-blue-600">Комплаенс (КНР)</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Market Potential Chart (TAM SAM SOM)
+        const ctx = document.getElementById('marketChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['TAM (Все)', 'SAM (Сервис)', 'SOM (Цель)'],
+                datasets: [{
+                    label: 'Выручка (млн ₽ / год)',
+                    data: [224.8, 72.7, 14.18],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.2)',
+                        'rgba(59, 130, 246, 0.5)',
+                        'rgba(30, 58, 138, 1)'
+                    ],
+                    borderColor: [
+                        '#3b82f6',
+                        '#3b82f6',
+                        '#1e3a8a'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { display: false }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
